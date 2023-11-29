@@ -4,6 +4,8 @@ import axios from "axios";
 import { auth } from "@/configs/auth";
 // ** Utils
 import request from "@/utils/request";
+import { getToken } from "@/utils/get-token";
+import exp from "constants";
 
 export const login = createAsyncThunk("login", async (payload: any) => {
   const response = await request.post(auth.login, payload);
@@ -15,8 +17,15 @@ export const appLoginSlice = createSlice({
   initialState: {
     data: [],
     loading: false,
+    isToken: false,
   },
-  reducers: {},
+  reducers: {
+    handleToken: (state: any) => {
+      if (getToken()) {
+        state.isToken = true;
+      }
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state: any) => {
       state.loading = true;
@@ -24,6 +33,7 @@ export const appLoginSlice = createSlice({
     builder.addCase(login.fulfilled, (state: any, action: any) => {
       state.data = action.payload;
       localStorage.setItem("token", action.payload.token);
+      state.isToken = true;
       state.loading = false;
     });
     builder.addCase(login.rejected, (state: any) => {
@@ -32,4 +42,5 @@ export const appLoginSlice = createSlice({
   },
 });
 
+export const { handleToken } = appLoginSlice.actions;
 export default appLoginSlice.reducer;
