@@ -46,7 +46,7 @@ const Login = () => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-wrap justify-center items-center text-center">
+        <div className="flex flex-wrap justify-center items-center text-center space-y-2 p-5">
           <div className="w-full md:w-1/2 px-1">
             <Input
               type="text"
@@ -67,7 +67,7 @@ const Login = () => {
             />
             {errors.password && <>{errors.password.message}</>}
           </div>
-          <div className="w-full md:w-2/2 px-1">
+          <div className="w-full md:w-2/2 py-5">
             <button type="submit" className="text-red-500">
               Send
             </button>
