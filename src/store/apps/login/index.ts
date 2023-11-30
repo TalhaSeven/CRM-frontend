@@ -1,14 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 // ** Configs
 import { auth } from "@/configs/auth";
 // ** Utils
 import request from "@/utils/request";
 import { getToken } from "@/utils/get-token";
-import exp from "constants";
 
 export const login = createAsyncThunk("login", async (payload: any) => {
   const response = await request.post(auth.login, payload);
+  return response.data;
+});
+
+export const getIsLogin = createAsyncThunk("getIsLogin", async () => {
+  const response = await request.get(auth.isLogin);
   return response.data;
 });
 
@@ -18,13 +21,14 @@ export const appLoginSlice = createSlice({
     data: [],
     loading: false,
     isToken: false,
+    isLogin:false
   },
   reducers: {
     handleToken: (state: any) => {
       if (getToken()) {
         state.isToken = true;
       }
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state: any) => {
@@ -38,6 +42,16 @@ export const appLoginSlice = createSlice({
     });
     builder.addCase(login.rejected, (state: any) => {
       state.loading = false;
+    });
+    builder.addCase(getIsLogin.pending, (state: any) => {
+      state.isLogin = true;
+    });
+    builder.addCase(getIsLogin.fulfilled, (state: any) => {
+      state.isLogin = true;
+    });
+    builder.addCase(getIsLogin.rejected, (state: any) => {
+      localStorage.removeItem("token");
+      state.isLogin = false;
     });
   },
 });

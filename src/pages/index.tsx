@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
+  
   // ** Redux
   const dispatch = useDispatch<AppDispatch>();
   // ** Selectors
@@ -27,8 +28,8 @@ export default function Home() {
       </h1>
 
       <div className="w-full md:w-2/2 px-1 text-black text-center">
-        {loading && <p>Loading...</p>}
         {!isToken ? <Login /> : "Login Success"}<br />
+        {loading && <p>Loading...</p>}
         {data.user?.firstName} {data.user?.lastName}
       </div>
     </>
