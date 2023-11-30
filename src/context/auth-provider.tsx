@@ -1,6 +1,7 @@
 import { AppDispatch } from "@/store";
-import { getIsLogin } from "@/store/apps/login";
-import { createContext, useContext, useEffect } from "react";
+import { getIsLogin, logout } from "@/store/apps/login";
+import { useRouter } from "next/router";
+import { createContext, use, useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 const defaultProvider: any = {
@@ -15,13 +16,23 @@ const AuthContext = createContext(defaultProvider);
 
 export function AuthProvider({ children }: Props) {
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.asPath === "/logout") {
+      dispatch(logout());
+      router.push("/login");
+    }
+  }, [router, dispatch]);
 
   useEffect(() => {
     dispatch(getIsLogin());
   }, []);
 
   const sharedData = "Use Context API";
-  return <AuthContext.Provider value={sharedData}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={sharedData}>{children}</AuthContext.Provider>
+  );
 }
 
 export function useAuthContext() {

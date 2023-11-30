@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { login } from "@/store/apps/login";
+import { useRouter } from "next/router";
 
 type FormValues = {
   email: string;
@@ -38,10 +39,12 @@ const Login = () => {
     defaultValues,
     resolver: yupResolver(loginFormSchema),
   });
+  const router = useRouter();
 
   const onSubmit = (payload: FormValues) => {
     dispatch(login(payload));
     reset(defaultValues);
+    router.push("/");
   };
   return (
     <>

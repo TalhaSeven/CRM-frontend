@@ -29,15 +29,20 @@ export const appLoginSlice = createSlice({
         state.isToken = true;
       }
     },
+    logout: (state: any) => {
+      state.isLogin = false;
+      localStorage.removeItem("token");
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state: any) => {
       state.loading = true;
     });
     builder.addCase(login.fulfilled, (state: any, action: any) => {
-      state.data = action.payload;
       localStorage.setItem("token", action.payload.token);
+      state.data = action.payload;
       state.isToken = true;
+      state.isLogin = true;
       state.loading = false;
     });
     builder.addCase(login.rejected, (state: any) => {
@@ -56,5 +61,5 @@ export const appLoginSlice = createSlice({
   },
 });
 
-export const { handleToken } = appLoginSlice.actions;
+export const { handleToken, logout } = appLoginSlice.actions;
 export default appLoginSlice.reducer;
