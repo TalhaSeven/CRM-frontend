@@ -4,9 +4,9 @@ import { handleToken } from "@/store/apps/login";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Menu from "@/components/menu";
+import Link from "next/link";
 
 export default function Home() {
-  
   // ** Redux
   const dispatch = useDispatch<AppDispatch>();
   // ** Selectors
@@ -24,12 +24,15 @@ export default function Home() {
 
   return (
     <>
-      <Menu/>
-      <main
-        className={`flex flex-col items-center justify-between p-10`}>
-        <hr />
-        {loading ? "Loading" : ""}
-        {data.user?.firstName} {data.user?.lastName}
+      <Menu />
+      <main className={`max-w-7xl mx-auto`}>
+        <div className="flex flex-wrap -mx-4 py-2 text-center">
+          <div className="w-full md:w-1/4 px-3">
+            <Link href="/new-customer">New Customer</Link></div>
+          <div className="w-full md:w-1/4 px-3"><Link href="/customer">Customer</Link></div>
+          <div className="w-full md:w-1/4 px-3"><Link href="/new-meeting">New Meeting</Link></div>
+          <div className="w-full md:w-1/4 px-3"><Link href="/calender">Calender</Link></div>
+        </div>
       </main>
     </>
   );

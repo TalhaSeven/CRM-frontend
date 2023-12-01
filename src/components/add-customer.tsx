@@ -6,24 +6,26 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
 import { login } from "@/store/apps/login";
 import { useRouter } from "next/router";
-import Menu from "./menu";
 
 type FormValues = {
+  firstName: string;
+  lastName: string;
   email: string;
-  password: string;
 };
 
 const loginFormSchema = yup.object().shape({
+  firstName: yup.string().required("Please enter your first name"),
+  lastName: yup.string().required("Please enter your last name"),
   email: yup.string().required("Please enter your email"),
-  password: yup.string().required("Please enter your password"),
 });
 
 const defaultValues: FormValues = {
+  firstName: "",
+  lastName: "",
   email: "",
-  password: "",
 };
 
-const Login = () => {
+function AddCustomer() {
   // ** Redux
   const dispatch = useDispatch<AppDispatch>();
 
@@ -46,9 +48,28 @@ const Login = () => {
   };
   return (
     <>
-      <Menu />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col justify-center items-center text-center space-y-2 p-5">
+          <div className="w-full md:w-1/2 px-1">
+            <Input
+              type="text"
+              placeholder="Fist Name"
+              className="mt-1"
+              rounded="rounded-2xl"
+              {...register("firstName", { required: true })}
+            />
+            {errors.firstName && <>{errors.firstName.message}</>}
+          </div>
+          <div className="w-full md:w-1/2 px-1">
+            <Input
+              type="text"
+              placeholder="Last Name"
+              className="mt-1"
+              rounded="rounded-2xl"
+              {...register("lastName", { required: true })}
+            />
+            {errors.lastName && <>{errors.lastName.message}</>}
+          </div>
           <div className="w-full md:w-1/2 px-1">
             <Input
               type="text"
@@ -59,16 +80,6 @@ const Login = () => {
             />
             {errors.email && <>{errors.email.message}</>}
           </div>
-          <div className="w-full md:w-1/2 px-1">
-            <Input
-              type="text"
-              placeholder="Password"
-              className="mt-1"
-              rounded="rounded-2xl"
-              {...register("password", { required: true })}
-            />
-            {errors.password && <>{errors.password.message}</>}
-          </div>
           <div className="w-full md:w-2/2 py-5">
             <button type="submit" className="text-red-500">
               Send
@@ -78,6 +89,6 @@ const Login = () => {
       </form>
     </>
   );
-};
+}
 
-export default Login;
+export default AddCustomer;
