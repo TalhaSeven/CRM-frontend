@@ -12,7 +12,7 @@ const Menu = () => {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           href="/"
-          className="flex items-center space-x-3 rtl:space-x-reverse"
+          className="flex items-center space-x-3 rtl:space-x-reverse text-white hover:text-blue-700 dark:text-white dark:hover:text-blue-500"
         >
           CRM
         </Link>
@@ -35,7 +35,7 @@ const Menu = () => {
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2"
+              strokeWidth="2"
               d="M1 1h15M1 7h15M1 13h15"
             />
           </svg>

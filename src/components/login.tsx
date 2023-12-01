@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { login } from "@/store/apps/login";
 import { useRouter } from "next/router";
+import Menu from "./menu";
 
 type FormValues = {
   email: string;
@@ -24,10 +25,6 @@ const defaultValues: FormValues = {
 const Login = () => {
   // ** Redux
   const dispatch = useDispatch<AppDispatch>();
-
-  // ** Selectors
-  const data: any = useSelector((state: RootState) => state.login.data);
-  const loading = useSelector((state: RootState) => state.login.loading);
 
   const {
     register,
@@ -48,8 +45,9 @@ const Login = () => {
   };
   return (
     <>
+      <Menu />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-wrap justify-center items-center text-center space-y-2 p-5">
+        <div className="flex flex-col justify-center items-center text-center space-y-2 p-5">
           <div className="w-full md:w-1/2 px-1">
             <Input
               type="text"
@@ -77,6 +75,7 @@ const Login = () => {
           </div>
         </div>
       </form>
+      <br />
     </>
   );
 };

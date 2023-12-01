@@ -27,7 +27,7 @@ export function AuthProvider({ children }: Props) {
 
   useEffect(() => {
     dispatch(getIsLogin());
-  }, []);
+  }, [router, dispatch]);
 
   const sharedData = "Use Context API";
   return (

@@ -3,8 +3,9 @@ import React from 'react'
 
 const LoginPage = () => {
   return (
-    <div>
-        <Login/>
+    <div
+      className="items-center">
+      <Login />
     </div>
   )
 }
