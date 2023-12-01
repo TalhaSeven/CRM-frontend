@@ -1,3 +1,4 @@
+// ** Initial State
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // ** Configs
 import { auth } from "@/configs/auth";
@@ -16,7 +17,7 @@ export const getIsLogin = createAsyncThunk("getIsLogin", async () => {
 });
 
 export const appLoginSlice = createSlice({
-  name: "appPost",
+  name: "auth",
   initialState: {
     data: [],
     loading: false,

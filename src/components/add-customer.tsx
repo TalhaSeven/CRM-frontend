@@ -4,8 +4,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
-import { login } from "@/store/apps/login";
-import { useRouter } from "next/router";
+import { addUser } from "@/store/apps/user";
 
 type FormValues = {
   firstName: string;
@@ -13,7 +12,7 @@ type FormValues = {
   email: string;
 };
 
-const loginFormSchema = yup.object().shape({
+const userFormSchema = yup.object().shape({
   firstName: yup.string().required("Please enter your first name"),
   lastName: yup.string().required("Please enter your last name"),
   email: yup.string().required("Please enter your email"),
@@ -37,11 +36,11 @@ function AddCustomer() {
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues,
-    resolver: yupResolver(loginFormSchema),
+    resolver: yupResolver(userFormSchema),
   });
 
   const onSubmit = (payload: FormValues) => {
-    dispatch(login(payload));
+    dispatch(addUser(payload));
     reset(defaultValues);
   };
   return (
