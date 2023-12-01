@@ -39,12 +39,10 @@ function AddCustomer() {
     defaultValues,
     resolver: yupResolver(loginFormSchema),
   });
-  const router = useRouter();
 
   const onSubmit = (payload: FormValues) => {
     dispatch(login(payload));
     reset(defaultValues);
-    router.push("/");
   };
   return (
     <>
