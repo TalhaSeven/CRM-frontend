@@ -1,10 +1,11 @@
-import Input from "@/components/input";
-import { useForm } from "react-hook-form";
+import React from 'react'
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/store";
-import { addUser } from "@/store/apps/user";
+// import { useDispatch } from 'react-redux';
+// import { AppDispatch } from '@/store';
+import { useForm } from 'react-hook-form';
+import Input from './input';
+import { addUser } from '@/store/apps/user';
 
 type FormValues = {
   firstName: string;
@@ -12,10 +13,10 @@ type FormValues = {
   email: string;
 };
 
-const userFormSchema = yup.object().shape({
-  firstName: yup.string().required("Please enter your first name"),
-  lastName: yup.string().required("Please enter your last name"),
-  email: yup.string().required("Please enter your email"),
+const loginFormSchema = yup.object().shape({
+  firstName: yup.string().required("Lütfen adınızı giriniz"),
+  lastName: yup.string().required("Lütfen soyadınız giriniz"),
+  email: yup.string().required("Lütfen email giriniz"),
 });
 
 const defaultValues: FormValues = {
@@ -24,9 +25,9 @@ const defaultValues: FormValues = {
   email: "",
 };
 
-function AddCustomer() {
+const AddCustomer = () => {
   // ** Redux
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
 
   const {
     register,
@@ -36,28 +37,30 @@ function AddCustomer() {
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues,
-    resolver: yupResolver(userFormSchema),
+    resolver: yupResolver(loginFormSchema),
   });
 
   const onSubmit = (payload: FormValues) => {
-    dispatch(addUser(payload));
+    // dispatch(addUser(payload));
     reset(defaultValues);
   };
+
   return (
     <>
+    <main className="max-w-2xl mx-auto">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col justify-center items-center text-center space-y-2 p-5">
-          <div className="w-full md:w-1/2 px-1">
+        <div className="flex flex-wrap -mx-4 py-28 gap-y-2">
+          <div className="w-full md:w-1/1 px-1">
             <Input
               type="text"
-              placeholder="Fist Name"
+              placeholder="First Name"
               className="mt-1"
               rounded="rounded-2xl"
               {...register("firstName", { required: true })}
             />
             {errors.firstName && <>{errors.firstName.message}</>}
           </div>
-          <div className="w-full md:w-1/2 px-1">
+          <div className="w-full md:w-1/1 px-1">
             <Input
               type="text"
               placeholder="Last Name"
@@ -67,7 +70,7 @@ function AddCustomer() {
             />
             {errors.lastName && <>{errors.lastName.message}</>}
           </div>
-          <div className="w-full md:w-1/2 px-1">
+          <div className="w-full md:w-1/1 px-1">
             <Input
               type="text"
               placeholder="Email"
@@ -77,16 +80,14 @@ function AddCustomer() {
             />
             {errors.email && <>{errors.email.message}</>}
           </div>
-          <div className="w-full md:w-2/2 py-5">
-            <button type="submit" className="text-red-500">
-              Send
-            </button>
+          <div className="w-full md:w-1/1 px-5 text-end">
+            <button type="submit">Gönder</button>
           </div>
         </div>
       </form>
+      </main>
     </>
-  );
+  )
 }
 
-export default AddCustomer;
-// Talha Seven
+export default AddCustomer

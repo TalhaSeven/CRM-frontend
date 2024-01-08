@@ -4,8 +4,7 @@ import React from 'react'
 const Calender = () => {
   return (
     <>
-    <Menu/>
-    <div>Calender</div>    
+      <Menu />
     </>
   )
 }

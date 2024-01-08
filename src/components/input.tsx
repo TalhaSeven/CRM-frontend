@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react";
+import React, { InputHTMLAttributes, useEffect, useState } from "react";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   sizeClass?: string;
@@ -25,8 +25,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <input
         ref={ref}
         type={type}
-        className={`block w-full border-neutral-200 focus:border-primary-300 focus:ring focus:ring-primary-200/50 bg-white dark:border-neutral-500 dark:focus:ring-primary-500/30 dark:bg-neutral-700 dark:text-neutral-100 dark:placeholder-neutral-400 dark:ring-offset-neutral-800 dark:ring-offset-2 dark:focus:border-primary-500 dark:focus:ring 
-        ${rounded} ${fontClass} ${sizeClass} ${className}`}
+        className={`block w-full border-neutral-200 focus:border-primary-300 focus:ring focus:ring-primary-200/50 bg-white dark:border-neutral-500 dark:focus:ring-primary-500/30 dark:bg-neutral-900 ${rounded} ${fontClass} ${sizeClass} ${className}`}
         {...args}
       />
     );

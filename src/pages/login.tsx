@@ -1,13 +1,14 @@
-import Login from '@/components/login'
-import React from 'react'
+import Login from "@/components/login";
+import React from "react";
 
 const LoginPage = () => {
   return (
-    <div
-      className="items-center">
+    <main
+      className="flex flex-col items-center justify-between p-10"
+    >
       <Login />
-    </div>
-  )
-}
+    </main>
+  );
+};
 
-export default LoginPage
+export default LoginPage;

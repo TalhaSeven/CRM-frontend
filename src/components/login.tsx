@@ -1,12 +1,12 @@
-import Input from "@/components/input";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/store";
-import { login } from "@/store/apps/login";
+import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import Input from "./input";
 import { useRouter } from "next/router";
-import Menu from "./menu";
+import { useLoginMutation } from "@/services/login";
+import { RootState } from "@/store";
 
 type FormValues = {
   email: string;
@@ -14,18 +14,20 @@ type FormValues = {
 };
 
 const loginFormSchema = yup.object().shape({
-  email: yup.string().required("Please enter your email"),
-  password: yup.string().required("Please enter your password"),
+  email: yup.string().required("Lütfen email giriniz"),
+  password: yup.string().required("Lütfen password giriniz"),
 });
 
 const defaultValues: FormValues = {
-  email: "",
-  password: "",
+  email: "test@xyz.com",
+  password: "123456",
 };
 
 const Login = () => {
-  // ** Redux
-  const dispatch = useDispatch<AppDispatch>();
+  const [login] = useLoginMutation();
+  
+  // ** State
+  const [loginError, setLoginError] = useState("")
 
   const {
     register,
@@ -37,18 +39,24 @@ const Login = () => {
     defaultValues,
     resolver: yupResolver(loginFormSchema),
   });
+
   const router = useRouter();
 
   const onSubmit = (payload: FormValues) => {
-    dispatch(login(payload));
-    reset(defaultValues);
-    router.push("/");
+    login(payload)
+      .unwrap()
+      .then(() => {
+        router.push("/");
+      })
+      .catch((error) => {
+        setLoginError(error.data.message);
+      });
   };
+
   return (
     <>
-      <Menu />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col justify-center items-center text-center space-y-2 p-5">
+        <div className="flex flex-wrap -mx-4 py-28 gap-y-2">
           <div className="w-full md:w-1/2 px-1">
             <Input
               type="text"
@@ -69,10 +77,9 @@ const Login = () => {
             />
             {errors.password && <>{errors.password.message}</>}
           </div>
-          <div className="w-full md:w-2/2 py-5">
-            <button type="submit" className="text-red-500">
-              Send
-            </button>
+          <div className="w-full md:w-2/2 px-1">
+            <div>{loginError}</div>
+            <button type="submit">Gönder</button>
           </div>
         </div>
       </form>
