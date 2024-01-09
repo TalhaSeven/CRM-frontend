@@ -14,7 +14,6 @@ type Props = {
 const AuthContext = createContext(defaultProvider);
 
 export function AuthProvider({ children }: Props) {
-
   const router = useRouter();
   const sharedData = "Use Context API";
   return (

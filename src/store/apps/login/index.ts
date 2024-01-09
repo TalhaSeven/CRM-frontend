@@ -8,13 +8,11 @@ import { getToken } from '@/utils/get-token'
 
 export const login = createAsyncThunk('login', async (payload: any) => {
     const response = await axiosServices.post(auth.login, payload)
-
     return response.data
 })
 
 export const getIsLogin = createAsyncThunk('getIsLogin', async () => {
     const response = await axiosServices.get(auth.isLogin)
-
     return response.data
 })
 

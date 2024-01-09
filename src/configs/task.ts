@@ -1,5 +1,5 @@
 export const task = {
-    newTask: 'tasks',
-    allTask: 'tasks',
-    updateTask: 'tasks/',
-}
+  newTask: "tasks",
+  allTask: "tasks",
+  updateTask: "tasks/",
+};

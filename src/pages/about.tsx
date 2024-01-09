@@ -1,13 +1,13 @@
-import Menu from '@/components/menu'
-import React from 'react'
+import Menu from "@/components/menu";
+import React from "react";
 
 const About = () => {
   return (
     <>
-    <Menu/>
-    <div>About</div>
+      <Menu />
+      <div>About</div>
     </>
-  )
-}
+  );
+};
 
-export default About
+export default About;

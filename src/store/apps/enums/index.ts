@@ -3,7 +3,6 @@ import request from '@/utils/axios-services'
 
 export const getEnum = createAsyncThunk('get/enum', async (url: string) => { 
     const response = await request.get(url)
-
     return response.data
 })
 

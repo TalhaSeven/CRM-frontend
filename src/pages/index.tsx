@@ -1,18 +1,10 @@
 import { Inter } from "next/font/google";
-import { useDispatch, useSelector } from "react-redux";
-// import { AppDispatch, RootState } from "@/store";
-import Login from "@/components/login";
-import { useEffect } from "react";
-import { handleToken } from "@/store/apps/login";
 import Link from "next/link";
 import Menu from "@/components/menu";
-import { useGetIsLoginQuery } from "@/services/login";
-import { RootState } from "@/store";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-
   return (
     <>
       <Menu />
@@ -22,13 +14,14 @@ export default function Home() {
             <Link href="/new-customer">New Customer</Link>
           </div>
           <div className="w-full md:w-1/4 px-3">
-            <Link href="/customer">Customers</Link></div>
+            <Link href="/customer">Customers</Link>
+          </div>
           <div className="w-full md:w-1/4 px-3 whitespace-nowrap">
             <Link href="task">New Task</Link>
           </div>
           <div className="w-full md:w-1/4 px-3">
             <Link href="/calender">Calender</Link>
-            </div>
+          </div>
         </div>
       </main>
     </>

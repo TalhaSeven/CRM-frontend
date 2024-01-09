@@ -78,7 +78,7 @@ const NewMeeting = () => {
       </div>
 
       {/* <select className="text-black">
-        <option>Seçiniz</option>
+        <option>Select</option>
         {users.map((item: any) => {
           return (
             <>
@@ -88,7 +88,7 @@ const NewMeeting = () => {
         })}
       </select>
       <select className="text-black">
-        <option>Seçiniz</option>
+        <option>Select</option>
         {Object.values(enumsData.task).map((item: string) => {
           return (
             <>
@@ -98,7 +98,7 @@ const NewMeeting = () => {
         })}
       </select>
       <select className="text-black">
-        <option>Seçiniz</option>
+        <option>Select</option>
         {Object.values(enumsData.taskStatus).map((item: string) => {
           return (
             <>

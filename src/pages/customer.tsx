@@ -11,7 +11,6 @@ const Customer = () => {
       <div>Customer Page</div>
       <div className="overflow-x-auto">
         <table className="table">
-          {/* head */}
           <thead>
             <tr>
               <th>#</th>
@@ -22,29 +21,21 @@ const Customer = () => {
             </tr>
           </thead>
           <tbody>
-          {isLoading
-        ? "Loading..."
-        : data.data?.map((k: any, i: number) => {
-            return (
-              <>
-              <tr key={i}>
-                <td>{i+1}</td>
-                <td>
-                  {k.firstName}
-                </td>
-                <td>
-                  {k.lastName}
-                </td>
-                <td>
-                  {k.email}
-                </td>
-                <td>
-                  {k.role}
-                </td>
-              </tr>
-              </>
-            );
-          })}
+            {isLoading
+              ? "Loading..."
+              : data.data?.map((k: any, i: number) => {
+                  return (
+                    <>
+                      <tr key={i}>
+                        <td>{i + 1}</td>
+                        <td>{k.firstName}</td>
+                        <td>{k.lastName}</td>
+                        <td>{k.email}</td>
+                        <td>{k.role}</td>
+                      </tr>
+                    </>
+                  );
+                })}
           </tbody>
         </table>
       </div>

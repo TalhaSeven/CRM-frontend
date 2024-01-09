@@ -63,18 +63,9 @@ const FormTask = ({ data, id }: Props) => {
   const [isSave, setIsSave] = useState(false);
 
   useEffect(() => {
-    console.log("useEffect >> ", data);
-    console.log("useEffect ID >> ", id);
-
     setValue("id", data?.id ?? 0);
     setValue("title", data?.title ?? "");
     setValue("description", data?.description ?? "");
-
-    console.log(
-      "Fine User >> "
-      // users.find((k: any) => k.id === data?.user?.id)
-    );
-
     setValue("user", data?.user);
     setValue("responsible", data?.responsible);
   }, [data]);

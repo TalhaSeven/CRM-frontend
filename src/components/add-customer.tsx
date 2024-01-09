@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-// import { useDispatch } from 'react-redux';
-// import { AppDispatch } from '@/store';
 import { useForm } from "react-hook-form";
 import Input from "./input";
 import { useSetUserMutation } from "@/services/user";
@@ -28,7 +26,7 @@ const defaultValues: FormValues = {
 const AddCustomer = () => {
   const [setUser] = useSetUserMutation();
   // ** State
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -42,16 +40,16 @@ const AddCustomer = () => {
   });
 
   const onSubmit = (payload: FormValues) => {
-    setLoading(true)
+    setLoading(true);
     setUser(payload)
       .unwrap()
       .then(() => {
         console.log("User added");
-        setLoading(false)
+        setLoading(false);
       })
       .catch((error) => {
         console.log("Failed to add user");
-        setLoading(false)
+        setLoading(false);
       });
     reset(defaultValues);
   };
@@ -92,7 +90,9 @@ const AddCustomer = () => {
               {errors.email && <>{errors.email.message}</>}
             </div>
             <div className="w-full md:w-1/1 px-5 text-end">
-              <button type="submit" disabled={loading}>{loading ? 'Please wait' : 'Submit'}</button>
+              <button type="submit" disabled={loading}>
+                {loading ? "Please wait" : "Submit"}
+              </button>
             </div>
           </div>
         </form>

@@ -23,9 +23,9 @@ const defaultValues: FormValues = {
 
 const Login = () => {
   const [login] = useLoginMutation();
-  
+
   // ** State
-  const [loginError, setLoginError] = useState("")
+  const [loginError, setLoginError] = useState("");
 
   const {
     register,
