@@ -1,14 +1,13 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch, useSelector } from "react-redux";
-// import { AppDispatch, RootState } from "@/store";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getUsers } from "@/store/apps/user";
-import { getEnum } from "@/store/apps/enums";
-import { getTasks, setNewTask, setUpdateTask } from "@/store/apps/tasks";
 import { Controller, useForm } from "react-hook-form";
 import Input from "@/components/input";
 import Select from "react-select";
+import { RootState } from "@/store";
+import { useGetUsersQuery } from "@/services/user";
+import { useGetTaskQuery } from "@/services/enums";
 
 type FormValues = {
   id?: number | 0;
@@ -21,17 +20,8 @@ type FormValues = {
 };
 
 const formSchema = yup.object().shape({
-  // type: yup.object({
-  //   id: yup.number().required('giriniz')
-  // }),
-  title: yup.string().trim().required("giriniz"),
-  description: yup.string().trim().required("giriniz"),
-  // status: yup.object({
-  //   id: yup.number().required('giriniz')
-  // }),
-  // user: yup.object({
-  //   id: yup.number().required('giriniz')
-  // }),
+  title: yup.string().trim().required("Required"),
+  description: yup.string().trim().required("Required"),
 });
 
 const defaultValues: FormValues = {
@@ -61,22 +51,15 @@ type Props = {
   id?: number;
 };
 
-// const FormTask: React.FC<Props> = ({data}) => {
 const FormTask = ({ data, id }: Props) => {
-  // ** Redux **
-  // const dispatch = useDispatch<AppDispatch>();
+  const {} = useGetUsersQuery("/users");
+  const { data: task } = useGetTaskQuery("/enum/task");
+  const { data: taskStatus } = useGetTaskQuery("/enum/task-status");
 
   // ** Selector **
-  // const usersLoading = useSelector(
-  //   (state: RootState) => state.user.usersLoading
-  // );
-  // const users: any[] = useSelector((state: RootState) => state.user.users);
-  // const enumsData = useSelector((state: RootState) => state.enums.data);
-  // const saveLoading = useSelector((state: RootState) => state.tasks.loading);
+  const users = useSelector((state: RootState) => state.usersState.users);
 
   // ** State **
-  const [task, setTask] = useState<any[]>([]);
-  const [taskStatus, setTaskStatus] = useState<any[]>([]);
   const [isSave, setIsSave] = useState(false);
 
   useEffect(() => {
@@ -84,50 +67,17 @@ const FormTask = ({ data, id }: Props) => {
     console.log("useEffect ID >> ", id);
 
     setValue("id", data?.id ?? 0);
-
     setValue("title", data?.title ?? "");
     setValue("description", data?.description ?? "");
 
-    setValue(
-      "type",
-      task.find((k: any) => k.name === data?.type?.name)
-    );
-    setValue(
-      "status",
-      taskStatus.find((k: any) => k.name === data?.status?.name)
-    );
-
     console.log(
-      "Fine User >> ",
-      users.find((k: any) => k.id === data?.user?.id)
+      "Fine User >> "
+      // users.find((k: any) => k.id === data?.user?.id)
     );
 
     setValue("user", data?.user);
     setValue("responsible", data?.responsible);
   }, [data]);
-
-  // useEffect(() => {
-  //   dispatch(getUsers());
-  //   dispatch(getEnum("/enum/task"));
-  //   dispatch(getEnum("/enum/task-status"));
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   setTask(
-  //     Object.values(enumsData.task).map((item: string, index: number) => {
-  //       return { id: index + 1, name: item };
-  //     })
-  //   );
-  //   setTaskStatus(
-  //     Object.values(enumsData.taskStatus).map((item: string, index: number) => {
-  //       return { id: index + 1, name: item };
-  //     })
-  //   );
-  // }, [enumsData]);
-
-  const abc = () => {
-    return data?.title ?? "test";
-  };
 
   const {
     register,
@@ -153,18 +103,9 @@ const FormTask = ({ data, id }: Props) => {
       userId: payload.user.id,
       responsibleId: payload.responsible.id,
     };
-    // if (payload.id === 0) {
-    //   dispatch(setNewTask(sendPayload));
-    // } else {
-    //   dispatch(setUpdateTask(sendPayload));
-    // }
     reset(defaultValues);
     setIsSave(true);
   };
-
-  // useEffect(() => {
-  //   if (isSave && !saveLoading) dispatch(getTasks());
-  // }, [dispatch, isSave, saveLoading]);
 
   return (
     <>
@@ -204,7 +145,7 @@ const FormTask = ({ data, id }: Props) => {
                     onChange={(e: any) => {
                       onChange(e);
                     }}
-                    options={[...task]}
+                    options={[...(task?.data ?? [])]}
                     placeholder={"Type"}
                     getOptionLabel={(option: any) => option.name}
                     getOptionValue={(option: any) => option.id}
@@ -229,7 +170,7 @@ const FormTask = ({ data, id }: Props) => {
                     onChange={(e: any) => {
                       onChange(e);
                     }}
-                    options={[...taskStatus]}
+                    options={[...(taskStatus?.data ?? [])]}
                     placeholder={"Task Status"}
                     getOptionLabel={(option: any) => option.name}
                     getOptionValue={(option: any) => option.id}
@@ -253,7 +194,7 @@ const FormTask = ({ data, id }: Props) => {
                     onChange={(e: any) => {
                       onChange(e);
                     }}
-                    // options={[...users]}
+                    options={[...users]}
                     placeholder={"Users"}
                     getOptionLabel={(option: any) =>
                       option.firstName + " " + option.lastName
@@ -279,7 +220,7 @@ const FormTask = ({ data, id }: Props) => {
                     onChange={(e: any) => {
                       onChange(e);
                     }}
-                    // options={[...users]}
+                    options={[...users]}
                     placeholder={"Responsible"}
                     getOptionLabel={(option: any) =>
                       option.firstName + " " + option.lastName

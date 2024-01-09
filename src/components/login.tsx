@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import Input from "./input";
 import { useRouter } from "next/router";
 import { useLoginMutation } from "@/services/login";
-import { RootState } from "@/store";
 
 type FormValues = {
   email: string;
@@ -14,12 +12,12 @@ type FormValues = {
 };
 
 const loginFormSchema = yup.object().shape({
-  email: yup.string().required("Lütfen email giriniz"),
-  password: yup.string().required("Lütfen password giriniz"),
+  email: yup.string().required("Please enter your email"),
+  password: yup.string().required("Please enter your password"),
 });
 
 const defaultValues: FormValues = {
-  email: "test@xyz.com",
+  email: "abc@xyz.com",
   password: "123456",
 };
 
@@ -79,7 +77,7 @@ const Login = () => {
           </div>
           <div className="w-full md:w-2/2 px-1">
             <div>{loginError}</div>
-            <button type="submit">Gönder</button>
+            <button type="submit">Submit</button>
           </div>
         </div>
       </form>

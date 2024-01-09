@@ -1,16 +1,8 @@
 import Menu from "@/components/menu";
-// import { AppDispatch, RootState } from "@/store";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getTasks } from "@/store/apps/tasks";
+import React, { useState } from "react";
 import FormTask from "@/components/form-task";
 
 const NewMeeting = () => {
-  // ** Redux **
-  // const dispatch = useDispatch<AppDispatch>();
-
-  // ** Selector **
-  // const tasks: any[] = useSelector((state: RootState) => state.tasks.data);
 
   // ** State **
   const [defaultValues, setDefaultValues] = useState({
@@ -34,10 +26,6 @@ const NewMeeting = () => {
       name: "",
     },
   });
-
-  // useEffect(() => {
-  //   dispatch(getTasks());
-  // }, [dispatch]);
 
   function handleEdit(task: any) {
     console.log('handleEdit >> ',task);

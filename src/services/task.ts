@@ -1,10 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { base } from '@/configs/base'
-import { user } from '@/configs/user'
-import { setUsers } from '@/store/apps/user'
+import { task } from '@/configs/task'
 
-export const userApi = createApi({
-    reducerPath: 'userApi',
+export const taskApi = createApi({
+    reducerPath: 'baseApi',
     baseQuery: fetchBaseQuery({
         baseUrl: base.base,
         prepareHeaders: (headers, { getState, endpoint }) => {
@@ -16,20 +15,12 @@ export const userApi = createApi({
         },
     }),
     endpoints: (builder) => ({
-        getUsers: builder.query<any, string>({
-            query: (url) => `${url}`,
-            transformResponse: (result: { data: any }) => result,
-            async onQueryStarted(_args, { dispatch, queryFulfilled }) {
-                try {
-                    const { data } = await queryFulfilled;
-                    dispatch(setUsers(data.data))
-                } catch (error) {
-                }
-            }
+        getTasks: builder.query<any, string>({
+            query: (url) => `${url}`
         }),
-        setUser: builder.mutation({
+        setTask: builder.mutation({
             query: (body) => ({
-                url: user.newUser,
+                url: task.newTask,
                 method: 'POST',
                 body,
             }),
@@ -44,4 +35,4 @@ export const userApi = createApi({
         }),
     }),
 })
-export const { useGetUsersQuery, useSetUserMutation } = userApi
+export const { useGetTasksQuery, useSetTaskMutation } = taskApi

@@ -8,8 +8,10 @@ const Customer = () => {
   return (
     <>
       <Menu />
+      <div>Customer Page</div>
       <div className="overflow-x-auto">
         <table className="table">
+          {/* head */}
           <thead>
             <tr>
               <th>#</th>
@@ -22,7 +24,7 @@ const Customer = () => {
           <tbody>
           {isLoading
         ? "Loading..."
-        : data.data?.map((k: any, i:number) => {
+        : data.data?.map((k: any, i: number) => {
             return (
               <>
               <tr key={i}>

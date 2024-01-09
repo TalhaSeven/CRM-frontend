@@ -14,7 +14,7 @@ const Menu = () => {
           href="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          Logo
+          CRM
         </Link>
         <button
           data-collapse-toggle="navbar-default"
