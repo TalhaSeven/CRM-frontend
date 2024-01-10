@@ -1,3 +1,0 @@
-# CRM Frontend
-
-On the frontend, CRM (Customer Relationship Management) displays customer data through the user interface, facilitates interaction, and ensures meaningful data presentation. Frontend developers focus on user-friendly interface design, compatibility across various devices and platforms, data visualization, and reporting features. It interacts with backend systems, receiving data and presenting it in an understandable manner to facilitate interaction between users and the business.
