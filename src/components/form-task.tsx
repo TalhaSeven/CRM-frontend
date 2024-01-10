@@ -2,12 +2,13 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, set, useForm } from "react-hook-form";
 import Input from "@/components/input";
 import Select from "react-select";
 import { RootState } from "@/store";
 import { useGetUsersQuery } from "@/services/user";
 import { useGetTaskQuery } from "@/services/enums";
+import { useSetTaskMutation } from "@/services/task";
 
 type FormValues = {
   id?: number | 0;
@@ -52,6 +53,7 @@ type Props = {
 };
 
 const FormTask = ({ data, id }: Props) => {
+  const [setTask] = useSetTaskMutation();
   const {} = useGetUsersQuery("/users");
   const { data: task } = useGetTaskQuery("/enum/task");
   const { data: taskStatus } = useGetTaskQuery("/enum/task-status");
@@ -60,7 +62,7 @@ const FormTask = ({ data, id }: Props) => {
   const users = useSelector((state: RootState) => state.usersState.users);
 
   // ** State **
-  const [isSave, setIsSave] = useState(false);
+  const [isSaveLoading, setIsSaveLoading] = useState(false);
 
   useEffect(() => {
     setValue("id", data?.id ?? 0);
@@ -68,6 +70,8 @@ const FormTask = ({ data, id }: Props) => {
     setValue("description", data?.description ?? "");
     setValue("user", data?.user);
     setValue("responsible", data?.responsible);
+    setValue("type", task?.data.find((k: any) => k.name === data?.type?.name));
+    setValue("status", taskStatus?.data.find((k: any) => k.name === data?.status?.name));
   }, [data]);
 
   const {
@@ -94,8 +98,16 @@ const FormTask = ({ data, id }: Props) => {
       userId: payload.user.id,
       responsibleId: payload.responsible.id,
     };
-    reset(defaultValues);
-    setIsSave(true);
+    setIsSaveLoading(true);
+    setTask(sendPayload)
+      .unwrap()
+      .then(() => {
+        reset(defaultValues);
+        setIsSaveLoading(false);
+      })
+      .catch(() => {
+        setIsSaveLoading(false);
+      });
   };
 
   return (
@@ -224,13 +236,13 @@ const FormTask = ({ data, id }: Props) => {
             {errors.responsible && <>{errors.responsible.message}</>}
           </div>
           <div className="w-full md:w-2/2 px-1">
-            {/* {saveLoading ? (
-              <>işleminiz yapılıyor</>
+            {isSaveLoading ? (
+              <>Please wait...</>
             ) : (
               <>
-                <button type="submit">Gönder</button>
+                <button type="submit">Submit</button>
               </>
-            )} */}
+            )}
           </div>
         </div>
       </form>
