@@ -235,15 +235,15 @@ const FormTask = ({ data, id }: Props) => {
             />
             {errors.responsible && <>{errors.responsible.message}</>}
           </div>
-          <div className="w-full md:w-2/2 px-1">
-            {isSaveLoading ? (
-              <>Please wait...</>
-            ) : (
-              <>
-                <button type="submit">Submit</button>
-              </>
-            )}
-          </div>
+          <div className="w-full md:w-2/2 px-1 flex justify-center">
+          {isSaveLoading ? (
+            <>Please wait</>
+          ) : (
+            <>
+              <button className="btn glass" type="submit">Submit</button>
+            </>
+          )}
+        </div>
         </div>
       </form>
     </>

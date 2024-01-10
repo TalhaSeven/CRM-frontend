@@ -89,10 +89,20 @@ const AddCustomer = () => {
               />
               {errors.email && <>{errors.email.message}</>}
             </div>
-            <div className="w-full md:w-1/1 px-5 text-end">
-              <button type="submit" disabled={loading}>
-                {loading ? "Please wait" : "Submit"}
-              </button>
+            <div className="w-full md:w-2/2 px-1 flex justify-center">
+              {loading ? (
+                <>Please wait</>
+              ) : (
+                <>
+                  <button
+                    className="btn glass"
+                    type="submit"
+                    disabled={loading}
+                  >
+                    Submit
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </form>
