@@ -1,13 +1,11 @@
-import React, { useState } from "react";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-// import { useDispatch } from 'react-redux';
-// import { AppDispatch } from '@/store';
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import ReactSelect from "react-select";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "./input";
 import { useSetUserMutation } from "@/services/user";
 import { useGetContactEnumQuery } from "@/services/enums";
-import ReactSelect from "react-select";
 import { useGetCountryQuery } from "@/services/country";
 
 type FormValues = {
@@ -51,7 +49,6 @@ const defaultValues: FormValues = {
 const AddCustomer = () => {
   const { data: contact } = useGetContactEnumQuery("/enum/contact");
   const { data: countries } = useGetCountryQuery("/country");
-
   const [setUser] = useSetUserMutation();
   // ** State
   const [loading, setLoading] = useState(false);

@@ -14,7 +14,7 @@ export default function Home() {
             <Link href="/customer">Customers</Link>
           </div>
           <div className="w-full md:w-1/4 px-3 whitespace-nowrap">
-            <Link href="task">New Task</Link>
+            <Link href="task">Task</Link>
           </div>
           <div className="w-full md:w-1/4 px-3">
             <Link href="/calender">Calender</Link>
