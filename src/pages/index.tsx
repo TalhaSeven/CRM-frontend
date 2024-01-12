@@ -5,6 +5,7 @@ import Menu from "@/components/menu";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  // const [customers, setCustomers] = useState([]);
   return (
     <>
       <Menu />
